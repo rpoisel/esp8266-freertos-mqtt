@@ -1,3 +1,7 @@
+/firmware/
+/build/
+*.swp
+
 # Object files
 *.o
 *.ko
