@@ -11,10 +11,8 @@
 
 #include "user_config.h"
 
-#define DEMO_AP_SSID "Demo"
-#define DEMO_AP_PASSWORD "passwd"
-
 static void user_setup(void);
+static void wifi_handle_event_cb(System_Event_t *event);
 static void helloworld(void *pvParameters);
 
 void ICACHE_FLASH_ATTR user_init(void)
@@ -35,9 +33,21 @@ static void user_setup(void)
     sprintf(config->ssid, DEMO_AP_SSID);
     sprintf(config->password, DEMO_AP_PASSWORD);
     wifi_station_set_config(config);
+    wifi_set_event_handler_cb(wifi_handle_event_cb);
     free(config);
     wifi_station_connect();
 
+}
+
+static void wifi_handle_event_cb(System_Event_t *event)
+{
+ if (event->event_id == EVENT_STAMODE_GOT_IP)
+ {
+   printf("Got IP! ip:" IPSTR ", mask:" IPSTR ", gw:" IPSTR " \n",
+     IP2STR(&event->event_info.got_ip.ip),
+     IP2STR(&event->event_info.got_ip.mask),
+     IP2STR(&event->event_info.got_ip.gw));
+ }
 }
 
 static void helloworld(void *pvParameters)

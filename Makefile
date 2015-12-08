@@ -34,15 +34,22 @@ ESPPORT		?= /dev/ttyUSB0
 TARGET		= app
 
 # which modules (subdirectories) of the project to include in compiling
-MODULES		= driver_lib/driver user
+MODULES		= \
+	driver_lib/driver \
+	external/esp_mqtt/mqtt \
+	user \
+
+
 EXTRA_INCDIR    = \
 	include \
 	driver_lib/include \
+	external/esp_mqtt/mqtt/include \
+	$(SDK_BASE)/include/espressif \
 	$(SDK_BASE)/include/lwip \
 	$(SDK_BASE)/include/lwip/ipv4 \
 	$(SDK_BASE)/include/lwip/ipv6 \
-	$(SDK_BASE)/include/espressif \
 	$(SDK_BASE)/extra_include
+
 
 # libraries used in this project, mainly provided by the SDK
 LIBS		= minic gcc hal pp phy net80211 lwip wpa main crypto freertos lwip
