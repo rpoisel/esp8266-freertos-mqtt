@@ -36,19 +36,19 @@ TARGET		= app
 # which modules (subdirectories) of the project to include in compiling
 MODULES		= \
 	driver_lib/driver \
-	external/esp_mqtt/mqtt \
+	external/ESP-RTOS-Paho/paho \
 	user \
-
 
 EXTRA_INCDIR    = \
 	include \
 	driver_lib/include \
-	external/esp_mqtt/mqtt/include \
 	$(SDK_BASE)/include/espressif \
 	$(SDK_BASE)/include/lwip \
 	$(SDK_BASE)/include/lwip/ipv4 \
 	$(SDK_BASE)/include/lwip/ipv6 \
-	$(SDK_BASE)/extra_include
+	$(SDK_BASE)/extra_include \
+	external/ESP-RTOS-Paho/paho \
+	external/ESP-RTOS-Paho/include
 
 
 # libraries used in this project, mainly provided by the SDK
