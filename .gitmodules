@@ -3,4 +3,4 @@
 	url = https://github.com/baoshi/ESP-RTOS-Paho.git
 [submodule "external/esp8266-cmake"]
 	path = external/esp8266-cmake
-	url = git@github.com:rpoisel/esp8266-cmake.git
+	url = https://github.com/rpoisel/esp8266-cmake.git

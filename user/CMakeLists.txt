@@ -1,3 +1,5 @@
+include(ESP8266-Deployment)
+
 link_directories(
     ${ESP8266_SDK_BASE}/lib
 )
@@ -31,20 +33,4 @@ target_link_libraries(firmware
     ${BUILD_LINK_SUFFIX}
 )
 
-SET(FW_FILE_1 ${CMAKE_CURRENT_BINARY_DIR}/0x00000.bin)
-SET(FW_FILE_2 ${CMAKE_CURRENT_BINARY_DIR}/0x40000.bin)
-
-add_custom_command(
-    TARGET firmware
-    POST_BUILD
-    COMMAND export PATH=$ENV{PATH}:${ESP8266_XTENSA_COMPILER_HOME}
-    COMMAND ${ESP8266_ESPTOOL} elf2image -o ${CMAKE_CURRENT_BINARY_DIR}/ firmware${CMAKE_EXECUTABLE_SUFFIX}
-    BYPRODUCTS ${FW_FILE_1} ${FW_FILE_2}
-)
-
-add_custom_target(
-    flash
-    COMMAND export PATH=$ENV{PATH}:${ESP8266_XTENSA_COMPILER_HOME}
-    COMMAND ${ESP8266_ESPTOOL} --port ${ESP8266_ESPTOOL_COM_PORT} write_flash 0x00000 ${FW_FILE_1} 0x40000 ${FW_FILE_2}
-    DEPENDS ${FW_FILE_1} ${FW_FILE_2}
-)
+create_deployment_rules(firmware 0x00000.bin 0x01010.bin 0x00000 0x01010)
