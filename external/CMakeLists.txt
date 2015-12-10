@@ -1,3 +1,5 @@
+add_subdirectory(esp8266-cmake/sdk-rtos)
+
 set(PAHO_MQTT_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/ESP-RTOS-Paho)
 
 add_library(PAHO_MQTT_HDR INTERFACE)
