@@ -1,4 +1,4 @@
-add_subdirectory(esp8266-cmake/sdk-rtos)
+add_subdirectory(esp8266-cmake/sdk)
 
 set(PAHO_MQTT_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/ESP-RTOS-Paho)
 
@@ -21,7 +21,7 @@ add_library(paho_mqtt STATIC
 )
 
 target_include_directories(paho_mqtt PRIVATE
-    $<TARGET_PROPERTY:ESP8266_SDK_HDR,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:ESP8266_SDK,INTERFACE_INCLUDE_DIRECTORIES>
     $<TARGET_PROPERTY:PAHO_MQTT_HDR,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
