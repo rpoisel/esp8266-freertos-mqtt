@@ -1,20 +1,17 @@
-add_library(USER_LIB INTERFACE)
-set_property(TARGET USER_LIB
-    PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-    ${CMAKE_CURRENT_LIST_DIR}
-    )
-
-file(GLOB USER_LIB_SRC
+file(GLOB USER_CODE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/*.c
 )
 
-add_library(user_lib STATIC
-    ${USER_LIB_SRC}
+add_library(user_code STATIC
+    ${USER_CODE_SRC}
 )
 
-target_include_directories(user_lib PRIVATE
-    $<TARGET_PROPERTY:USER_LIB,INTERFACE_INCLUDE_DIRECTORIES>
-    $<TARGET_PROPERTY:DRIVER_LIB_HDR,INTERFACE_INCLUDE_DIRECTORIES>
-    $<TARGET_PROPERTY:PAHO_MQTT_HDR,INTERFACE_INCLUDE_DIRECTORIES>
-    $<TARGET_PROPERTY:ESP8266_SDK,INTERFACE_INCLUDE_DIRECTORIES>
-    )
+target_include_directories(user_code PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}
+)
+
+target_link_libraries(user_code PUBLIC
+    ESP8266_SDK
+    paho_mqtt
+    driver_lib
+)

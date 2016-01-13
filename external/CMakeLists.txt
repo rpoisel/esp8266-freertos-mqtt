@@ -6,13 +6,6 @@ add_subdirectory(esp8266-cmake/sdk)
 
 set(PAHO_MQTT_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/ESP-RTOS-Paho)
 
-add_library(PAHO_MQTT_HDR INTERFACE)
-set_property(TARGET PAHO_MQTT_HDR
-    PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-    ${PAHO_MQTT_SOURCE_DIR}/paho
-    ${PAHO_MQTT_SOURCE_DIR}/include
-)
-
 file(GLOB PAHO_MQTT_SRC
     ${PAHO_MQTT_SOURCE_DIR}/paho/*.c
 )
@@ -24,8 +17,11 @@ add_library(paho_mqtt STATIC
     ${PAHO_MQTT_SOURCE_DIR}/driver/uart.c
 )
 
-target_include_directories(paho_mqtt PRIVATE
-    $<TARGET_PROPERTY:PAHO_MQTT_HDR,INTERFACE_INCLUDE_DIRECTORIES>
-    $<TARGET_PROPERTY:ESP8266_SDK,INTERFACE_INCLUDE_DIRECTORIES>
+target_include_directories(paho_mqtt PUBLIC
+    ${PAHO_MQTT_SOURCE_DIR}/paho
+    ${PAHO_MQTT_SOURCE_DIR}/include
 )
 
+target_link_libraries(paho_mqtt PUBLIC
+    user_code
+)
